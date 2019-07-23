@@ -1,0 +1,21 @@
+version: "3"
+services:
+ postgres:
+  image: postgres:10.5-alpine
+  ports:
+  - "5432:5432"
+  environment:
+  - POSTGRES_USER=root
+  - POSTGRES_PASSWORD=root
+  - POSTGRES_DB=testepostgres
+  volumes:
+  - ./:/var/lib/postgresql
+
+ api:
+  build: .
+  ports:
+  - "8080:8080"
+  links:
+  - postgres
+  depends_on:
+  - postgres
